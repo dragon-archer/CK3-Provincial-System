@@ -1,0 +1,38 @@
+﻿provincial_government = {
+	rulers_should_have_dynasty = yes
+	royal_court = yes
+	primary_holding = castle_holding
+	required_county_holdings = { castle_holding city_holding }
+
+	can_get_government = {
+		OR = {
+			primary_title = {
+				is_target_in_global_variable_list = {
+					name = valid_provincial_governments
+					target = this
+				}
+			}
+			AND = {
+				is_independent_ruler = no
+				liege = {
+					government_has_flag = government_is_provincial
+				}
+			}
+		}
+	}
+
+	vassal_contract = {
+		provincial_government_taxes
+		provincial_government_levies
+		special_contract
+		ps_hereditary_rights
+		ps_tenure_rights
+		ps_autocratic_rights
+		religious_rights
+		council_rights
+	}
+
+	flag = government_is_provincial
+	flag = may_appoint_viziers
+	color = hsv{ 0.10 0.69 0.69 }
+}

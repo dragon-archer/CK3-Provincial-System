@@ -1,0 +1,150 @@
+﻿# Interactions relating to Provincial Government
+
+ps_make_provincial_interaction = {
+	interface_priority = 100
+	common_interaction = yes
+	category = interaction_category_vassal
+	icon = scroll_scales
+
+	is_shown = {
+		scope:actor = { government_has_flag = government_is_provincial }
+		scope:recipient = {
+			is_vassal_of = scope:actor
+			ps_vassal_can_become_provincial_trigger = yes
+		}
+	}
+
+	send_option = {
+		flag = keep_hereditary
+		localization = ps_keep_hereditary
+	}
+	send_options_exclusive = no
+
+	on_accept = {
+		if = {
+			limit = { NOT = { always = scope:keep_hereditary } }
+			scope:actor = { add_tyranny = medium_tyranny_gain }
+		}
+		scope:recipient = {
+			change_government = provincial_government
+			if = {
+				limit = { always = scope:keep_hereditary }
+				hidden_effect = {
+					vassal_contract_set_obligation_level = { type = ps_tenure_rights level = 1 }
+					vassal_contract_set_obligation_level = { type = ps_hereditary_rights level = 1 }
+				}
+				custom_tooltip = ps_keep_hereditary_tt_1
+				custom_tooltip = ps_keep_hereditary_tt_2
+				custom_tooltip = ps_keep_hereditary_tt_3
+			}
+			else = {
+				add_opinion = {
+					target = scope:actor
+					modifier = ps_revoke_hereditary
+				}
+			}
+		}
+	}
+
+	auto_accept = yes
+	ai_will_do = { base = 0 }
+}
+
+ps_appoint_successor = {
+	interface_priority = 100
+	common_interaction = yes
+	category = interaction_category_vassal
+	icon = icon_shift_privileges
+
+	populate_actor_list = {
+		scope:actor = {
+			every_close_or_extended_family_member = {
+				limit = { ps_already_successor_of_recipient_trigger = no }
+				add_to_list = characters
+			}
+			every_courtier_or_guest = {
+				limit = { ps_already_successor_of_recipient_trigger = no }
+				add_to_list = characters
+			}
+		}
+		scope:recipient = {
+			every_close_or_extended_family_member = {
+				limit = { ps_already_successor_of_recipient_trigger = no }
+				add_to_list = characters
+			}
+			every_councillor = {
+				limit = { ps_already_successor_of_recipient_trigger = no }
+				add_to_list = characters
+			}
+		}
+	}
+
+	is_shown = {
+		scope:actor = { government_has_flag = government_is_provincial }
+		scope:recipient = {
+			is_vassal_of = scope:actor
+			government_has_flag = government_is_provincial
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		custom_tooltip = {
+			text = ps_vassal_contract_forbids_appoint_successor
+			scope:recipient = { NOT = { vassal_contract_has_flag = ps_granted_hereditary_rights } }
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = { exists = scope:recipient.designated_heir }
+			scope:recipient.designated_heir = { save_scope_as = old_heir }
+		}
+		else_if = {
+			limit = {
+				exists = scope:recipient.primary_heir
+				NOT = { scope:recipient.primary_heir = scope:actor }
+			}
+			scope:recipient.primary_heir = { save_scope_as = old_heir }
+		}
+
+		scope:recipient = { set_designated_heir = scope:secondary_actor }
+
+		scope:secondary_actor = {
+			ps_replace_opinion_towards_actor_effect = {
+				OLD_MOD = ps_revoke_me_as_heir
+				NEW_MOD = ps_appoint_me_as_heir
+			}
+		}
+		scope:old_heir ?= {
+			ps_replace_opinion_towards_actor_effect = {
+				OLD_MOD = ps_appoint_me_as_heir
+				NEW_MOD = ps_revoke_me_as_heir
+			}
+		}
+		scope:recipient = {
+			if = {
+				limit = {
+					scope:old_heir ?= { ps_belongs_to_recipient_trigger = yes }
+					scope:secondary_actor = { ps_belongs_to_recipient_trigger = no }
+				}
+				ps_replace_opinion_towards_actor_effect = {
+					OLD_MOD = ps_appoint_my_heir
+					NEW_MOD = ps_revoke_my_heir
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = { scope:old_heir ?= { ps_belongs_to_recipient_trigger = yes } } # Wrap in NOT so that non-exist results to true
+					scope:secondary_actor = { ps_belongs_to_recipient_trigger = yes }
+				}
+				ps_replace_opinion_towards_actor_effect = {
+					OLD_MOD = ps_revoke_my_heir
+					NEW_MOD = ps_appoint_my_heir
+				}
+			}
+		}
+	}
+
+	auto_accept = yes
+	ai_will_do = { base = 0 }
+}

@@ -1,0 +1,29 @@
+﻿ps_revoke_hereditary = {
+	opinion = -50
+	years = 50
+	stacking = yes
+}
+
+ps_revoke_my_heir = {
+	opinion = -20
+	decaying = yes
+	monthly_change = 0.1
+}
+
+ps_appoint_my_heir = {
+	opinion = 20
+	decaying = yes
+	monthly_change = 0.1
+}
+
+ps_revoke_me_as_heir = {
+	opinion = -20
+	decaying = yes
+	monthly_change = 0.1
+}
+
+ps_appoint_me_as_heir = {
+	opinion = 20
+	decaying = yes
+	monthly_change = 0.1
+}

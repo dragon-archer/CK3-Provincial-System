@@ -1,0 +1,189 @@
+﻿# Accepted categories are: governments, name_lists, heritages, faiths, religions
+# A Flavorization will apply if ALL specified categories have ANY of their entries
+# represented in the character/title
+# So for example:
+# governments = { feudal_government }
+# heritages = { mongolic_group central_germanic_group }
+# For this to apply a character MUST BE feudal, AND must also be EITHER altaic OR germanic
+# priority is used to determine priority, if they are the same then the LAST will be selected,
+# and honorifics will be prefered over landed titles. Default priority is 1
+# If a flavorization does not have a tier it can apply to all tiers of characters, too many non-tiered
+# flavorizations is bad for performance though, YOU HAVE BEEN WARNED!
+# 'top_liege = no' means that its the holder of the title causing the honorific that is tested for
+# 'only_holder = yes' means that this will only be applied to the person holding the title, not their spouse and such
+# the various categories, so for a prince it is the king that is tested, for a queen mother it is her son
+# if this is not specified ( or 'top_liege = yes' the default ) then it is the top liege of that character
+# that is tested, this means that most title flavor comes from the top liege of the title not the holder
+####################################################
+
+#Princes (children of Kings/Emperors, sorted by culture)
+
+# Prince
+
+# prince_male_provincial = {
+	# type = character
+	# gender = male
+	# special = ruler_child
+	# tier = kingdom
+	# priority = 200
+	# governments = { provincial_government }
+	# top_liege = no
+# }
+# prince_female_provincial = {
+	# type = character
+	# gender = female
+	# special = ruler_child
+	# tier = kingdom
+	# priority = 200
+	# governments = { provincial_government }
+	# top_liege = no
+# }
+prince_male_provincial_empire = {
+	type = character
+	gender = male
+	special = ruler_child
+	tier = empire
+	priority = 850
+	governments = { provincial_government }
+	top_liege = no
+}
+prince_female_provincial_empire = {
+	type = character
+	gender = female
+	special = ruler_child
+	tier = empire
+	priority = 850
+	governments = { provincial_government }
+	top_liege = no
+}
+
+# Holder
+
+baron_provincial_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = barony
+	priority = 500
+	governments = { provincial_government }
+	top_liege = no
+}
+baron_provincial_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = barony
+	priority = 500
+	governments = { provincial_government }
+	top_liege = no
+}
+count_provincial_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = county
+	priority = 600
+	governments = { provincial_government }
+	top_liege = no
+}
+count_provincial_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = county
+	priority = 600
+	governments = { provincial_government }
+	top_liege = no
+}
+duch_provincial_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = duchy
+	priority = 700
+	governments = { provincial_government }
+	top_liege = no
+}
+duch_provincial_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 700
+	governments = { provincial_government }
+	top_liege = no
+}
+king_provincial_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = kingdom
+	priority = 800
+	governments = { provincial_government }
+	top_liege = no
+}
+king_provincial_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = kingdom
+	priority = 800
+	governments = { provincial_government }
+	top_liege = no
+}
+emperor_provincial_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = empire
+	priority = 900
+	governments = { provincial_government }
+	top_liege = no
+}
+emperor_provincial_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = empire
+	priority = 900
+	governments = { provincial_government }
+	top_liege = no
+}
+
+# Title
+
+barony_provincial = {
+	type = title
+	tier = barony
+	priority = 500
+	governments = { provincial_government }
+	top_liege = no
+}
+county_provincial = {
+	type = title
+	tier = county
+	priority = 600
+	governments = { provincial_government }
+	top_liege = no
+}
+duchy_provincial = {
+	type = title
+	tier = duchy
+	priority = 700
+	governments = { provincial_government }
+	top_liege = no
+}
+kingdom_provincial = {
+	type = title
+	tier = kingdom
+	priority = 800
+	governments = { provincial_government }
+	top_liege = no
+}
+empire_provincial = {
+	type = title
+	tier = empire
+	priority = 900
+	governments = { provincial_government }
+	top_liege = no
+}

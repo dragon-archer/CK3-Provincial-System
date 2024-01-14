@@ -1,0 +1,61 @@
+﻿## Character interaction
+
+ps_already_successor_of_recipient_trigger = {
+	OR = {
+		scope:recipient.designated_heir ?= this
+		scope:recipient.primary_heir ?= this
+	}
+}
+
+ps_belongs_to_recipient_trigger = {
+	OR = {
+		is_close_or_extended_family_of = scope:recipient
+		AND = {
+			scope:recipient = { vassal_contract_has_flag = ps_granted_autocratic_rights }
+			is_councillor_of = scope:recipient
+		}
+	}
+}
+
+## Government
+
+ps_is_central_government_trigger = {
+	government_has_flag = government_is_provincial
+	is_independent_ruler = yes
+}
+
+ps_is_provincial_government_trigger = {
+	government_has_flag = government_is_provincial
+	is_independent_ruler = no
+}
+
+ps_can_become_provincial_trigger = {
+	is_landed = yes
+	OR = {
+		government_has_flag = government_is_feudal
+		government_has_flag = government_is_clan
+	}
+}
+
+ps_vassal_can_become_provincial_trigger = {
+	is_landed = yes
+	OR = {
+		government_has_flag = government_is_feudal
+		government_has_flag = government_is_clan
+	}
+	highest_held_title_tier >= tier_duchy
+	sub_realm_size >= 10
+}
+
+## Unused
+
+ps_is_capable_bureaucrat_trigger = {
+	is_capable_adult = yes
+	is_imprisoned = no
+}
+
+# @arg PROVINCE the title scope of the province
+ps_is_successor_of_province_trigger = {
+	ps_is_capable_bureaucrat_trigger = yes
+	has_strong_claim_on = $PROVINCE$
+}

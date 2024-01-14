@@ -1,0 +1,5 @@
+﻿
+provincial = {
+	parent = government
+	alias = { provincial_government province }
+}

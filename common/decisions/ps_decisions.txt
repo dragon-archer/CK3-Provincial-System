@@ -1,0 +1,50 @@
+﻿# Become a provincial government
+ps_become_provincial_government_decision = {
+	major = yes
+	picture = "gfx/interface/illustrations/decisions/fp3/fp3_decision_foundation.dds"
+
+	is_shown = {
+		ps_can_become_provincial_trigger = yes
+		highest_held_title_tier >= tier_duchy
+		sub_realm_size >= 30
+	}
+
+	is_valid = {
+		ps_can_become_provincial_trigger = yes
+		highest_held_title_tier >= tier_kingdom
+		sub_realm_size >= 50
+	}
+
+	is_valid_showing_failures_only = {
+		custom_tooltip = {
+			text = "no_powerful_vassal_with_negative_opinion"
+			NOT = {
+				any_vassal = {
+					is_powerful_vassal = yes
+					opposes_succession_law_change_trigger = yes
+				}
+			}
+		}
+	}
+
+	cost = {
+		prestige = monumental_prestige_value
+		gold = monumental_gold_value
+	}
+
+	effect = {
+		primary_title = {
+			add_to_global_variable_list = {
+				name = valid_provincial_governments
+				target = this
+			}
+		}
+		change_government = provincial_government
+	}
+
+	ai_check_interval = 0
+
+	ai_will_do = {
+		base = 0
+	}
+}

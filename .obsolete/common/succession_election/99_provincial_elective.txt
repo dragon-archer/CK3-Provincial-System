@@ -1,0 +1,44 @@
+﻿# The entry should be named in the same way that the elective succession law is named to define it's voter's logic.
+# Root scope - Elector, the character voting in the election.
+# scope:candidate scope - Candidate, Character considered for the title.
+# scope:title scope - Title, The title the nomination is for.
+# scope:holder scope - Ruler, The ruler currently holding the title.
+# scope:holder_candidate scope - Favored Candidate, The title owner's candidate.
+# The voter will vote for the top score candidate calculated from this script.
+
+# Note that in the provincial elective, the holder is actually the vassal
+provincial_elective = {
+	candidates = {
+		add = {
+			type = title_claimants
+			limit = {
+				has_strong_claim_on = scope:title
+			}
+		}
+	}
+
+	candidate_score = {
+		base = 0
+		modifier = {
+			scope:candidate = {
+				has_strong_claim_on = scope:title
+			}
+			add = 100
+			desc = tooltip_provincial_elector_vote_appointment
+		}
+	}
+
+	electors = {
+		add = holder
+		add = {
+			type = holder_direct_vassals
+			limit = {
+				has_same_government = scope:holder
+			}
+		}
+	}
+
+	elector_vote_strength = {
+		base = 1
+	}
+}

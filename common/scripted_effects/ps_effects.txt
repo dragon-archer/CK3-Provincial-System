@@ -1,0 +1,27 @@
+﻿## Charactrer interaction
+
+# @arg MOD the modifier to be removed
+ps_remove_opinion_towards_actor_effect = {
+	if = {
+		limit = {
+			has_opinion_modifier = {
+				target = scope:actor
+				modifier = $MOD$
+			}
+		}
+		remove_opinion = {
+			target = scope:actor
+			modifier = $MOD$
+		}
+	}
+}
+
+# @arg OLD_MOD the modifier to be removed
+# @arg NEW_MOD the modifier to be added
+ps_replace_opinion_towards_actor_effect = {
+	ps_remove_opinion_towards_actor_effect = { MOD = $OLD_MOD$ }
+	add_opinion = {
+		target = scope:actor
+		modifier = $NEW_MOD$
+	}
+}
