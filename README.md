@@ -18,5 +18,5 @@ This is a mod for Game Crusader Kings III
   - [ ] Dismiss from office
 - [x] GUI for provincial government
 - [ ] Events
-  - [ ] Circulating Ooficials event chain
+  - [ ] Circulating Officials event chain
 - [ ] English translation
